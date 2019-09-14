@@ -1,24 +1,52 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
+const request = require('superagent');
+const App2 = require('./app2');
 
 class App extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.state = {horses:[]};
 	}
 	
 	componentDidMount() {
-		
+		request.get('http://localhost:8080/api/horses')
+			.set('Content-Type', 'application/json')
+			.end((err,res) => {
+			
+				if(err){
+					console.dir(error);
+				}
+				this.setState({horses:res.body._embedded.horses});
+			})
 	}
 	
 	render() {
 		return (
-			<h3>horse-stable-gender</h3>
+			<div>
+				<ul>
+					{this.state.horses.map((item) => {
+						return (
+								<li key={item.horsename}>{item.horsename}</li>
+						)
+					})}
+				</ul>
+			</div>
+			
 		)
 	}
 	
 }
-
+/*
+class App2 extends React.Component{
+	render(){
+		return(
+				<div>powerd by itamura2</div>
+		)
+	}
+}
+*/
 ReactDOM.render(
 	<App />,
 	document.getElementById('react')

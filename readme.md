@@ -82,3 +82,8 @@ ReactDOM.render(
 )
 
 #Maven Install
+
+
+#WebPackを変更すると自動でコンパイルさせる
+cd /Users/itamuraryouhei/Documents/workspace_spring/SpringOnReactProject
+./node_modules/.bin/webpack --progress --watch
